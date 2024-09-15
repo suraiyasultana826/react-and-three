@@ -4,30 +4,31 @@ import Stats from 'three/examples/jsm/libs/stats.module.js';
 import './App.css'
 import { useEffect } from 'react';
 import sunTexture from '../src/assets/sun.jpg'
+import Navbar from './Navbar';
 
 function App() {
   useEffect(() => {
     const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 1, 1000);
+    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
     const canvas = document.getElementById('myThreeJsCanvas');
     const renderer = new THREE.WebGLRenderer({
       canvas,
-      antialias: true,
+      antialias: true
     });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
     const ambientLight = new THREE.AmbientLight(0x333333);
-scene.add(ambientLight);
+    scene.add(ambientLight);
 
-const textureLoader = new THREE.TextureLoader();
+    const textureLoader = new THREE.TextureLoader();
 
-const sunGeo = new THREE.SphereGeometry(16, 30, 30);
-const sunMat = new THREE.MeshBasicMaterial({
-  map: textureLoader.load(sunTexture)
-  });
+    const sunGeo = new THREE.SphereGeometry(16, 30, 30);
+    const sunMat = new THREE.MeshBasicMaterial({
+      map: textureLoader.load(sunTexture)
+    });
 
-const sun = new THREE.Mesh(sunGeo, sunMat);
-scene.add(sun);
+    const sun = new THREE.Mesh(sunGeo, sunMat);
+    scene.add(sun);
 
 
     //add orbit controls.
@@ -37,7 +38,7 @@ scene.add(sun);
     document.body.appendChild(stats.dom);
 
     camera.position.z = 50;
-    
+
 
 
     function animate() {
@@ -47,7 +48,7 @@ scene.add(sun);
       controls.update();
 
       renderer.render(scene, camera);
-            window.requestAnimationFrame(animate);
+      // window.requestAnimationFrame(animate);
 
     }
     renderer.setAnimationLoop(animate);
@@ -56,14 +57,14 @@ scene.add(sun);
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+    });
   }, [])
 
   return (
     <>
-      <div>
+    <Navbar></Navbar>
         <canvas id='myThreeJsCanvas' />
-      </div>
+     
     </>
   )
 }
