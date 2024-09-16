@@ -22,13 +22,40 @@ function App() {
 
     const textureLoader = new THREE.TextureLoader();
 
-    const sunGeo = new THREE.SphereGeometry(16, 30, 30);
+    const solarSystemGroup = new THREE.Group();
+    const earthOrbit = new THREE.Group();
+
+    const sunGeo = new THREE.SphereGeometry(4);
     const sunMat = new THREE.MeshBasicMaterial({
       map: textureLoader.load(sunTexture)
     });
 
     const sun = new THREE.Mesh(sunGeo, sunMat);
-    scene.add(sun);
+    solarSystemGroup.add(sun);
+    scene.add(solarSystemGroup);
+
+
+    const earthGeo = new THREE.SphereGeometry(2);
+    const earthMat = new THREE.MeshBasicMaterial({
+      map: textureLoader.load('../src/assets/img/earth.jpg')
+    });
+
+    const earth = new THREE.Mesh(earthGeo, earthMat);
+    earth.position.x=12;
+    earthOrbit.add(earth)
+    scene.add(earthOrbit);
+
+    const moonOrbit = new THREE.Group();
+    const moonGeo = new THREE.SphereGeometry(1);
+    const moonMat = new THREE.MeshBasicMaterial({
+      map: textureLoader.load('../src/assets/img/pluto.jpg')
+    });
+
+    const moon = new THREE.Mesh(moonGeo, moonMat);
+    moonOrbit.add(moon);
+    moonOrbit.position.x = 12;
+    moon.position.x = 4;
+    earthOrbit.add(moonOrbit);
 
 
     //add orbit controls.
@@ -44,6 +71,8 @@ function App() {
     function animate() {
 
       sun.rotation.y += 0.005;
+      earthOrbit.rotation.y += 0.005;
+      moonOrbit.rotation.y += 0.05;
       stats.update();
       controls.update();
 
