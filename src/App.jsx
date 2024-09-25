@@ -1,7 +1,6 @@
 import * as THREE from 'three';
 import './App.css'
 import { useEffect } from 'react';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 
 function App() {
   useEffect(() => {
@@ -89,6 +88,18 @@ function App() {
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
     renderer.setClearColor(new THREE.Color('#212020'), 1)
 
+
+    //mouseMove
+
+    document.addEventListener('mousemove', animateParticles)
+    let mouseX =0
+    let mouseY = 0
+
+    function animateParticles(event){
+      mouseX = event.clientX
+      mouseY = event.clientY
+    }
+
     /**
  * Animate
  */
@@ -101,6 +112,11 @@ function App() {
 
       // Update objects
       sphere.rotation.y = .5 * elapsedTime
+
+      particleMesh.rotation.y = -.1 * elapsedTime
+      if(mouseX > 0){
+      particleMesh.rotation.x = -mouseY * (elapsedTime * 0.0008)
+      particleMesh.rotation.y = mouseX * (elapsedTime * 0.0008)}
 
       // Update Orbital Controls
       // controls.update()

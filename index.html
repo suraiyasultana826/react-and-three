@@ -4,10 +4,31 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + React</title>
+    <title>Particles</title>
+   
   </head>
   <body>
+
+    <div class="container">
+      <div class="content">
+        <h1>The Next <br> Dimension</h1>
+        <p>Journey into the next Dimension with this crazy particle effect.</p>
+      </div>
+    </div>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/CSSRulePlugin.min.js" integrity="sha512-IxxYrSNXnt/RJlxNX40+7BQL88FLqvdpVpuV9AuvpNH/NFP0L8xA8WLxWTXx6PYExB5R/ktQisp6tIrnLn8xvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+      const content = CSSRulePlugin.getRule('.content:before')
+      const h1 = document.querySelector('h1')
+      const p = document.querySelector('p')
+      const tl = gsap.timeline()
+
+      tl.from(content, {delay: 0.05, duration: 1, cssRule: {ScaleX: 0}})
+      tl.to(h1, {duration:1.5, clipPath: 'polygon( 0 0 , 100% 0, 100% 100% , 0 100%)', y:'30px'})
+      tl.to(p, {duration:3, clipPath: 'polygon( 0 0 , 100% 0, 100% 100% , 0 100%)', y:'30px'})
+    </script>
   </body>
 </html>
